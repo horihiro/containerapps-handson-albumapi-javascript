@@ -12,9 +12,9 @@ on:
 
 # Add env
 env:
-  CONTAINER_REGISTRY: acrhandson01envqnfkjgai7e.azurecr.io # ACR のドメイン (~.azurecr.io) をこちらに設定
+  CONTAINER_REGISTRY: acrhandson01i7zv2kjnpyk5o.azurecr.io # ACR のドメイン (~.azurecr.io) をこちらに設定
   # Add envs
-  RESOURCE_GROUP_NAME: Handson01-CICD # 準備タスクで作成されたリソースグループ名をここに記載
+  RESOURCE_GROUP_NAME: rg-handson01 # 準備タスクで作成されたリソースグループ名をここに記載
   CONTAINERAPP_NAME: ctapp-demo-api # 準備タスクで作成された API Container App 名をここに記載
 
 jobs:
