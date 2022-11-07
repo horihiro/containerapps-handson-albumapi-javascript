@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout to the branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Set repository name to env
         run: | 
@@ -31,7 +31,7 @@ jobs:
       # Add a step
       - name: Log in to container registry
         # 認証処理を行うためのアクション
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ${{ env.CONTAINER_REGISTRY }}
           username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
@@ -39,7 +39,7 @@ jobs:
 
       # Add a step
       - name: Build and push container image to registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: ${{ env.CONTAINER_REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ github.sha }}
@@ -91,8 +91,13 @@ jobs:
               --target-port 3500 \
               --type external
 
+            container_name=$( az containerapp show \
+              --name ${{ env.CONTAINERAPP_NAME }} \
+              --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
+              --query "properties.template.containers[0].name" \
+            )
             az containerapp update \
               --name ${{ env.CONTAINERAPP_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
-              --container-name ${{ env.CONTAINERAPP_NAME }}-container \
+              --container-name ${ container_name } \
               --image ${{ env.CONTAINER_REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ github.sha }}
