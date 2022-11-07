@@ -99,5 +99,5 @@ jobs:
             az containerapp update \
               --name ${{ env.CONTAINERAPP_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
-              --container-name ${ container_name } \
+              --container-name $container_name \
               --image ${{ env.CONTAINER_REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ github.sha }}
