@@ -2,19 +2,12 @@ name: Trigger auto deployment
 on:
   # 手動実行用トリガー
   workflow_dispatch:      
-  # Add a trigger
-  # 自動実行用トリガー
-  push:
-    branches: 
-      [ main ]
-    paths:
-    - '**'
 
 # Add env
 env:
-  CONTAINER_REGISTRY: acrhandson01i7zv2kjnpyk5o.azurecr.io # ACR のドメイン (~.azurecr.io) をこちらに設定
+  CONTAINER_REGISTRY: acrhori20226cjhqhcbtzryu.azurecr.io # ACR のドメイン (~.azurecr.io) をこちらに設定
   # Add envs
-  RESOURCE_GROUP_NAME: rg-handson01 # 準備タスクで作成されたリソースグループ名をここに記載
+  RESOURCE_GROUP_NAME: handson-cicd # 準備タスクで作成されたリソースグループ名をここに記載
   CONTAINERAPP_NAME: ctapp-demo-api # 準備タスクで作成された API Container App 名をここに記載
 
 jobs:
