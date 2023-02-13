@@ -102,5 +102,5 @@ jobs:
               --name ${{ env.CONTAINERAPP_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
               --container-name $container_name \
-              --image ${{ env.CONTAINER_REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ github.sha }}
+              --image ${{ env.CONTAINER_REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ github.sha }} \
                --set-env-vars PORT=3000
