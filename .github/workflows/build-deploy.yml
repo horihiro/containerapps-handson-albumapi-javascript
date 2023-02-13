@@ -2,6 +2,11 @@ name: Trigger auto deployment
 on:
   # 手動実行用トリガー
   workflow_dispatch:      
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
 
 # Add env
 env:
@@ -85,11 +90,13 @@ jobs:
               --username  ${{ secrets.CONTAINER_REGISTRY_USERNAME }} \
               --password ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
-            az containerapp ingress enable \
+            az containerapp dapr enable \
               --name ${{ env.CONTAINERAPP_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
-              --target-port 3000 \
-              --type external
+              --dapr-enable-api-logging \
+              --dapr-app-id ${{ env.CONTAINERAPP_NAME }} \
+              --dapr-app-port 3000 \
+              --dapr-log-level debug
 
             container_name=$( \
               az containerapp show \
