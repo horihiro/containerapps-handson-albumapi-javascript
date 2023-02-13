@@ -92,7 +92,7 @@ jobs:
 
             az containerapp ingress disable \
               --name ${{ env.CONTAINERAPP_NAME }} \
-              --resource-group ${{ env.RESOURCE_GROUP_NAME }
+              --resource-group ${{ env.RESOURCE_GROUP_NAME }}
 
             az containerapp dapr enable \
               --name ${{ env.CONTAINERAPP_NAME }} \
