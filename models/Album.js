@@ -15,7 +15,16 @@ const albums = [
   }
 ];
 
+const sleep = (timeout) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, timeout);
+  });
+}
+
 const getAlbums = async () => {
+  await sleep(1000);
   return Promise.resolve(albums);
 };
 
