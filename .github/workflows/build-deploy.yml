@@ -90,17 +90,11 @@ jobs:
               --username  ${{ secrets.CONTAINER_REGISTRY_USERNAME }} \
               --password ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
-            az containerapp ingress disable \
-              --name ${{ env.CONTAINERAPP_NAME }} \
-              --resource-group ${{ env.RESOURCE_GROUP_NAME }}
-
-            az containerapp dapr enable \
+            az containerapp ingress enable \
               --name ${{ env.CONTAINERAPP_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
-              --dapr-enable-api-logging \
-              --dapr-app-id ${{ env.CONTAINERAPP_NAME }} \
-              --dapr-app-port 3000 \
-              --dapr-log-level debug
+              --target-port 3000 \
+              --type external
 
             container_name=$( \
               az containerapp show \
@@ -114,4 +108,9 @@ jobs:
               --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
               --container-name $container_name \
               --image ${{ env.CONTAINER_REGISTRY }}/${{ env.REPOSITORY_NAME }}:${{ github.sha }} \
-               --set-env-vars PORT=3000
+              --min-replicas 0 \
+              --max-replicas 5 \
+              --scale-rule-http-concurrency 1 \
+              --scale-rule-name http-scaling \
+              --scale-rule-type http \
+              --set-env-vars PORT=3000
