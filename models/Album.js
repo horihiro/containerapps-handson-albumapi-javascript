@@ -24,7 +24,7 @@ const sleep = (timeout) => {
 }
 
 const getAlbums = async () => {
-  await sleep(1000);
+  await sleep(5000);
   return Promise.resolve(albums);
 };
 
